@@ -1,0 +1,32 @@
+{
+  "name": "md-test-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "serve": "http-server dist --cors --port 8080"
+  },
+  "devDependencies": {
+    "typescript": "~5.8.3",
+    "vite": "^7.0.4"
+  },
+  "dependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "http-server": "^14.1.1",
+    "markdown-it": "^14.1.0",
+    "rehype-raw": "^7.0.0",
+    "rehype-sanitize": "^6.0.0",
+    "rehype-stringify": "^10.0.1",
+    "rehype-stringify-v9": "npm:rehype-stringify@^9",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-parse-v10": "npm:remark-parse@^10",
+    "remark-rehype": "^11.1.2",
+    "unified": "^11.0.5",
+    "unified-v10": "npm:unified@^10",
+    "vfile": "^6.0.3"
+  }
+}
