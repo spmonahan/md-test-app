@@ -7,7 +7,11 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "serve": "http-server dist --cors --port 8080"
+    "serve": "http-server dist --cors --port 8080",
+    "benchmark:stream-small": "tachometer --config ./benchmarks/unified-v11_markdown-it-v14_stream-small.tachometer.json",
+    "benchmark:stream-large": "tachometer --config ./benchmarks/unified-v11_markdown-it-v14_stream-large.tachometer.json",
+    "benchmark:oneshot-small": "tachometer --config ./benchmarks/unified-v11_markdown-it-v14_oneshot-small.tachometer.json",
+    "benchmark:oneshot-large": "tachometer --config ./benchmarks/unified-v11_markdown-it-v14_oneshot-large.tachometer.json"
   },
   "devDependencies": {
     "typescript": "~5.8.3",
@@ -25,6 +29,7 @@
     "remark-parse": "^11.0.0",
     "remark-parse-v10": "npm:remark-parse@^10",
     "remark-rehype": "^11.1.2",
+    "tachometer": "^0.7.2",
     "unified": "^11.0.5",
     "unified-v10": "npm:unified@^10",
     "vfile": "^6.0.3"

@@ -78,3 +78,6 @@ performance.measure('all-time', {
   start: startAll, 
   end: endAll,
 });
+
+// @ts-ignore
+window.tachometerResult = endAll - startAll;

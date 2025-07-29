@@ -1,0 +1,32 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Polymer/tachometer/master/config.schema.json",
+  "root": "..",
+  "sampleSize": 50,
+  "timeout": 3,
+  "benchmarks": [
+    {
+      "name": "unified-v11",
+      "url": "http://localhost:8080/unified-v11?file=ventless-dryers.md&stream=true",
+      "browser": {
+        "name": "chrome",
+        "headless": true,
+        "windowSize": {
+          "width": 1920,
+          "height": 1080
+        }
+      }
+    },
+    {
+      "name": "markdown-it-v14",
+      "url": "http://localhost:8080/markdown-it-v14?file=ventless-dryers.md&stream=true",
+      "browser": {
+        "name": "chrome",
+        "headless": true,
+        "windowSize": {
+          "width": 1920,
+          "height": 1080
+        }
+      }
+    }
+  ]
+}
