@@ -24,32 +24,32 @@ const mdStream = makeStream(md);
 const process = (md: string) => {
   const vfile = new VFile(md);
 
-  const startParse = performance.now();
+  // const startParse = performance.now();
   const tree = processor.parse(md);
-  const endParse = performance.now();
+  // const endParse = performance.now();
 
-  const startTransform = performance.now();
+  // const startTransform = performance.now();
   const hast = processor.runSync(tree, vfile);
-  const endTransform = performance.now();
+  // const endTransform = performance.now();
 
-  const startStringify = performance.now();
+  // const startStringify = performance.now();
   const htmlStr = processor.stringify(hast, vfile);
-  const endStringify = performance.now();
+  // const endStringify = performance.now();
 
-  performance.measure('parse-time', {
-    start: startParse, 
-    end: endParse,
-  });
+  // performance.measure('parse-time', {
+  //   start: startParse, 
+  //   end: endParse,
+  // });
 
-  performance.measure('transform-time', {
-    start: startTransform, 
-    end: endTransform,
-  });
+  // performance.measure('transform-time', {
+  //   start: startTransform, 
+  //   end: endTransform,
+  // });
 
-  performance.measure('stringify-time', {
-    start: startStringify, 
-    end: endStringify,
-  });
+  // performance.measure('stringify-time', {
+  //   start: startStringify, 
+  //   end: endStringify,
+  // });
 
   return {
     htmlStr,
@@ -74,10 +74,10 @@ if (shouldStream) {
 
 const endAll = performance.now();
 
-performance.measure('all-time', {
-  start: startAll, 
-  end: endAll,
-});
+// performance.measure('all-time', {
+//   start: startAll, 
+//   end: endAll,
+// });
 
 // @ts-ignore
 window.tachometerResult = endAll - startAll;

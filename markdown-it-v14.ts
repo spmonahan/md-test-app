@@ -14,21 +14,21 @@ const md = await res.text();
 const mdStream = makeStream(md);
 
 const process = (md:string) => {
-  const startProcess = performance.now();
+  // const startProcess = performance.now();
   const htmlStr = mdit.render(md);
-  const endProcess = performance.now();
+  // const endProcess = performance.now();
 
-  performance.measure('process-time', {
-    start: startProcess,
-    end: endProcess,
-  });
+  // performance.measure('process-time', {
+  //   start: startProcess,
+  //   end: endProcess,
+  // });
 
   return {
     htmlStr
   };
 }
 
-const startTime = performance.now();
+const startAll = performance.now();
 
 if (shouldStream) {
   let streamStr = "";
@@ -43,11 +43,11 @@ if (shouldStream) {
   app.innerHTML = htmlStr.toString();
 }
 
-const endTime = performance.now();
-performance.measure('all-time', {
-    start: startTime, 
-    end: endTime,
-});
+const endAll = performance.now();
+// performance.measure('all-time', {
+//     start: startAll, 
+//     end: endAll,
+// });
 
 // @ts-ignore
 window.tachometerResult = endAll - startAll;
