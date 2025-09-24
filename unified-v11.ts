@@ -4,6 +4,7 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
 import { VFile } from 'vfile';
+import { makeStream } from "./stream-faker";
 
 const app = document.querySelector<HTMLDivElement>('#app')!;
 
@@ -13,47 +14,70 @@ const processor = unified()
   .use(rehypeStringify);
 
 const file = new URLSearchParams(window.location.search).get("file") || "lorem-lg.md";
+const shouldStream = new URLSearchParams(window.location.search).get("stream") === "true";
 
-fetch(file).then((res) => res.text()).then((md) => {
-  const startAll = performance.now();
+const res = await fetch(file);
+const md = await res.text();
 
+const mdStream = makeStream(md);
+
+const process = (md: string) => {
   const vfile = new VFile(md);
 
-  const startMd = performance.now();
-  const mdast = processor.parse(md);
-  const endMd = performance.now();
+  // const startParse = performance.now();
+  const tree = processor.parse(md);
+  // const endParse = performance.now();
 
-  const startHtml = performance.now();
-  const hast = processor.runSync(mdast, vfile);
-  const endHtml = performance.now();
+  // const startTransform = performance.now();
+  const hast = processor.runSync(tree, vfile);
+  // const endTransform = performance.now();
 
-  const startStringify = performance.now();
+  // const startStringify = performance.now();
   const htmlStr = processor.stringify(hast, vfile);
-  const endStringify = performance.now();
+  // const endStringify = performance.now();
 
-  const endAll = performance.now();
+  // performance.measure('parse-time', {
+  //   start: startParse, 
+  //   end: endParse,
+  // });
 
-  performance.measure('all-time', {
-    start: startAll, 
-    end: endAll,
-  });
+  // performance.measure('transform-time', {
+  //   start: startTransform, 
+  //   end: endTransform,
+  // });
 
-  performance.measure('md-time', {
-    start: startMd, 
-    end: endMd,
-  });
+  // performance.measure('stringify-time', {
+  //   start: startStringify, 
+  //   end: endStringify,
+  // });
 
-  performance.measure('html-time', {
-    start: startHtml, 
-    end: endHtml,
-  });
+  return {
+    htmlStr,
+  };
+}
 
-  performance.measure('stringify-time', {
-    start: startStringify, 
-    end: endStringify,
-  });
+const startAll = performance.now();
 
+if (shouldStream) {
+  let streamStr = "";
+  // @ts-ignore
+  for await (const chunk of mdStream) {
+  
+    streamStr += chunk;
+    const { htmlStr } = process(streamStr);
+    app.innerHTML = htmlStr.toString();
+  }
+} else {
+  const { htmlStr } = process(md);
   app.innerHTML = htmlStr.toString();
+}
 
-  // window.tachometerResult = endTime - startTime;
-})
+const endAll = performance.now();
+
+// performance.measure('all-time', {
+//   start: startAll, 
+//   end: endAll,
+// });
+
+// @ts-ignore
+window.tachometerResult = endAll - startAll;
